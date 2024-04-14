@@ -9,5 +9,5 @@
  - [Представления сумматора в виде Telegram бота](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/OVS/individual%201)
 
 ## Летняя практика 1 курса 
- - [Приложения для построения интерполяционного полинома Лагранжа](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/summer_tasks/task_2) 
+ - [Приложение для построения интерполяционного полинома Лагранжа](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/summer_tasks/task_2) 
 
