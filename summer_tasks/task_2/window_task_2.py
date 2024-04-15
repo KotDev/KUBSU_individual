@@ -6,15 +6,19 @@ from polynomial import arr_x, arr_y, F
 class WindowApp(wx.Frame):  # описываем базовый класс нашего окна
     def __init__(self, *args, **kw):
         """Инициализируем все виджеты и панель, получаем все методы и атрибуты унаследованного"""
-        super(WindowApp, self).__init__(*args, **kw)
+        super(WindowApp, self).__init__(*args, **kw, size=(900, 400))
 
         self.panel = wx.Panel(self)  # создаём панель окна
         self.grid = Grid(self.panel)  # создаём таблицу
 
+        self.grid.Bind(wx.grid.EVT_GRID_CELL_CHANGED, self.color_value_table)
+
         # создаём кнопку "принять" и input виджет
         self.size_table_button = wx.Button(self.panel, label="Принять", size=(100, 30))  # создаём виджет кнопки
         self.size_table_button.Bind(wx.EVT_BUTTON, self.create_table)  # привязываем кнопку к функции
-        self.input_size = wx.TextCtrl(self.panel, style=wx.TE_PROCESS_ENTER)  # создаём input виджет
+        # создаём input виджет
+        self.input_size = wx.TextCtrl(self.panel, style=wx.TE_PROCESS_ENTER | wx.TE_NO_VSCROLL, size=(300, -1))
+        self.input_size.SetHint("Размерность таблицы 2 x n")
 
         # создаём кнопку назад
         self.back_button = wx.Button(self.panel, label="Назад", size=(100, 30))  # создаём виджет кнопки
@@ -26,12 +30,12 @@ class WindowApp(wx.Frame):  # описываем базовый класс на�
 
         # Размещаем виджеты на панели
         self.sizer = wx.BoxSizer(wx.VERTICAL)  # создаём общий sizer
-        input_sizer = wx.BoxSizer(wx.HORIZONTAL)  # создаём sizer для input поля и кнопки создания таблицы
+        input_sizer = wx.BoxSizer(wx.VERTICAL)  # создаём sizer для input поля и кнопки создания таблицы
         input_sizer.Add(self.input_size, 0, wx.EXPAND | wx.ALL, 5)  # добавляем в sizer поле input
         input_sizer.Add(self.size_table_button, 0, wx.EXPAND | wx.ALL, 5)  # добавляем кнопку в sizer
         self.sizer.Add(input_sizer, 0, wx.EXPAND)  # добавляем sizer в общий sizer
 
-        self.sizer.Add(self.grid, 1, wx.EXPAND | wx.ALL, 5) # Добавляем таблицу в общий sizer
+        self.sizer.Add(self.grid, 1, wx.EXPAND | wx.ALL, 5)  # Добавляем таблицу в общий sizer
 
         button_sizer = wx.BoxSizer(wx.HORIZONTAL)  # создаём sizer для кнопок
         button_sizer.Add(self.add_button, 0, wx.BOTTOM, 5)  # добавляем в sizer кнопку расчёта и создания полинома
@@ -71,6 +75,8 @@ class WindowApp(wx.Frame):  # описываем базовый класс на�
             for col in range(cols):  # проходим по строкам
                 self.grid.SetColLabelValue(col, f"{col + 1}")  # именнуем каждую колонку цифрой
                 self.grid.SetCellValue(row, col, "0")  # заполняем таблицу 0
+                self.grid.SetCellBackgroundColour(row, col, wx.RED)
+                self.grid.SetCellTextColour(wx.BLACK)
 
     def create_table(self, event) -> None:
         """Метод event для задания размерности таблицы
@@ -85,6 +91,7 @@ class WindowApp(wx.Frame):  # описываем базовый класс на�
                 self.grid.Show(True)  # показываем виджет таблицы
                 self.add_button.Show(True)  # показываем виджет кнопки расчёта и создания полинома
                 self.back_button.Show(True)  # показываем виджет кнопки назад
+                self.panel.Layout()
             else:
                 self.show_text("максимальная размерность таблицы 2x10 а минимальный 2x2")  # выводим сообщения об ошибке
                 return
@@ -137,6 +144,24 @@ class WindowApp(wx.Frame):  # описываем базовый класс на�
         for child in self.panel.GetChildren():  # проходимся по списку виджетов панели
             if isinstance(child, wx.StaticText):  # проверяем есть ли среди виджетов виджет текста
                  child.Destroy()  # удаляем данный виджет с панели
+
+    def color_value_table(self, event):
+        """ Метод event для проверки и замены цвета в табличке """
+        row = event.GetRow()  # получаем текущую строку
+        col = event.GetCol()  # получаем текущую колонку
+
+        value = self.grid.GetCellValue(row, col)  # получаем текущее значение из ячейки
+
+        # Производим проверку условия
+        if value != '0':
+            self.grid.SetCellBackgroundColour(row, col, wx.GREEN)  # красим ячейку в зеленый
+            self.grid.SetCellValue(row, col, value)  # заменяем на value
+            self.grid.SetCellTextColour(row, col, wx.RED)  # красим 1 в красный
+        else:
+            self.grid.SetCellBackgroundColour(row, col, wx.RED)  # красим ячейку в красный
+            self.grid.SetCellValue(row, col, '0')  # заменяем на 0
+            self.grid.SetCellTextColour(row, col, wx.BLACK)  # красим 0 в чёрный
+
 
 
 app = wx.App()  # создаём приложение
