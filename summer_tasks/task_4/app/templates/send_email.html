@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Form</title>
+    <style>
+        /* Общие стили */
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="submit"] {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #0c68ec;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #549655;
+        }
+    </style>
+</head>
+{% extends "base.html" %}
+<body>
+{% block content %}
+    <div class="container">
+        <div class="form-container">
+            {%if user.is_admin%}
+            <form action="" method="post">
+                <h2>Отправка по Email: {{user_recipient.email_name}}</h2>
+                {{ form.csrf_token }}
+                {% for field in form if field.name != "csrf_token" %}
+                <label for="{{ field.name }}">{{ field.label }}</label>
+                {{ field }}
+                {% for error in field.errors %}
+                <p class="error-message">{{ error }}</p>
+                {% endfor %}
+                {% endfor %}
+                <a href="{{url_for('user_profile', user_id=user_recipient.id)}}" class="btn">Назад</a>
+            </form>
+            {%else%}
+            <h1>У вас недостаточно прав</h1>
+            {%endif%}
+        </div>
+    </div>
+{% endblock content %}
+</body>
+</html>

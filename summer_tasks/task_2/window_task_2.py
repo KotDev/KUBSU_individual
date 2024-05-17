@@ -76,7 +76,6 @@ class WindowApp(wx.Frame):  # описываем базовый класс на�
                 self.grid.SetColLabelValue(col, f"{col + 1}")  # именнуем каждую колонку цифрой
                 self.grid.SetCellValue(row, col, "0")  # заполняем таблицу 0
                 self.grid.SetCellBackgroundColour(row, col, wx.RED)
-                self.grid.SetCellTextColour(wx.BLACK)
 
     def create_table(self, event) -> None:
         """Метод event для задания размерности таблицы
@@ -130,6 +129,7 @@ class WindowApp(wx.Frame):  # описываем базовый класс на�
             self.show_text(f"F({x}) = {res[0]}")  # выводим текст со значением функции f(x) = y
         polynom = str(polynom).replace("**", "^")
         self.show_text(f"F(x) = {polynom}")  # выводим сам интерполяционный полином Лагранжа
+        print(f"F(x) = {polynom}")
         arr_x.clear()  # очищаем список x
         arr_y.clear()  # очищаем список y
 

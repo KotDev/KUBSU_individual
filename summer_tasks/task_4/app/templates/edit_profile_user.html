@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма редактирования пользователя</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+{% extends "base.html" %}
+<body>
+{% block content %}
+    <div class="container">
+        {% if form and profile %}
+        <form action="" method="post">
+            {{ form.csrf_token() }}
+
+            {% for field in form if field.name != "csrf_token" %}
+            <div class="form-group">
+                <label>{{ field.label() }}</label>
+                {%if field.name != "submit"%}
+                {{ field }}
+                {%endif%}
+                {% for error in field.errors %}
+                <span class="error-message">{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <button type="submit", name="submit">Сохранить</button>
+        </form>
+        <hr>
+        <div>
+            <h2>Управление пользователем</h2>
+            <p>Вы можете удалить пользователя, нажав на кнопку ниже:</p>
+            <form action="{{ url_for('delete_user', user_id=profile.id) }}" method="post">
+                {{ form.csrf_token() }}
+                <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить этого пользователя?')">Удалить пользователя</button>
+            </form>
+        </div>
+        {% elif not profile %}
+        <h1>Пользователь не найден</h1>
+        {% else %}
+        <h1>У вас нет прав для редактирования пользователя</h1>
+        {% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    <span class="error-message">{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+{% endblock content %}
+</body>
+</html>

@@ -92,7 +92,6 @@ class WindowApp(wx.Frame):  # описываем базовый класс на�
                 self.grid.SetColLabelValue(col, f"x{col + 1}")  # именнуем каждую колонку xi
                 self.grid.SetCellValue(row, col, "0")  # заполняем таблицу 0
                 self.grid.SetCellBackgroundColour(row, col, wx.RED)
-                self.grid.SetCellTextColour(wx.BLACK)
 
     def create_table(self, event) -> None:
         """Метод event для задания размерности таблицы

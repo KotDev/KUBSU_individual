@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-width: 100%;
+            margin-right: 20px; /* Добавляем отступ справа */
+        }
+        .button-container {
+            margin-top: 10px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff; /* Цвет заголовка */
+        }
+        p {
+            margin: 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        input[type="submit"]:focus {
+            outline: none; /* Убираем обводку при фокусе */
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            outline: none; /* Убираем обводку при фокусе */
+            border-color: #007bff; /* Цвет обводки при фокусе */
+        }
+        .error-message {
+            color: red; /* Цвет сообщения об ошибке */
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-container">
+        <form action="" method="post">
+            <h2>Регистрация</h2>
+            {{ form.csrf_token }}
+            {% for field in form if field.name != "csrf_token" %}
+            <label for="{{ field.name }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}
+            <p class="error-message">{{ error }}</p>
+            {% endfor %}
+            {% endfor %}
+            <div class="button-container">
+        <a href="{{url_for('authentication_vew')}}" style="display: inline-block;
+            background-color: #4CAF50; /* Зеленый цвет */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 179px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none; /* Убираем подчеркивание */
+            transition: background-color 0.3s ease;">Войти</a>
+    </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    <span class="error-message">{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+        </form>
+    </div>
+</div>
+</body>
+</html>

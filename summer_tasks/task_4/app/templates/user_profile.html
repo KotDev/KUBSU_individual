@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .profile h1 {
+            color: #333;
+        }
+    </style>
+</head>
+{% extends "base.html" %}
+<body>
+{% block content %}
+    <div class="profile">
+        <h1>Профиль: {{profile.login}}</h1>
+        <p>ФИО: {{profile.second_name}} {{profile.first_name}} {{profile.surname}}</p>
+        <p>Email: {{profile.email_name}}</p>
+        <p>Номер телефона: {{profile.phone_number}}</p>
+    </div>
+      {%if user.is_admin%}
+<a href="{{ url_for('send_message_vew', user_id=profile.id) }}">
+    <button style="background-color: #4CAF50; /* Green */
+                   border: none;
+                   color: white;
+                   padding: 15px 32px;
+                   text-align: center;
+                   text-decoration: none;
+                   display: inline-block;
+                   font-size: 16px;
+                   margin: 4px 2px;
+                   cursor: pointer;
+                   border-radius: 10px;">Написать сообщение</button>
+</a>
+<a href="{{ url_for('edit_profile_user', user_id=profile.id) }}">
+    <button style="background-color: #4CAF50; /* Green */
+                   border: none;
+                   color: white;
+                   padding: 15px 32px;
+                   text-align: center;
+                   text-decoration: none;
+                   display: inline-block;
+                   font-size: 16px;
+                   margin: 4px 2px;
+                   cursor: pointer;
+                   border-radius: 10px;">Редактировать</button>
+</a>
+{%endif%}
+{% endblock content %}
+</body>
+</html>

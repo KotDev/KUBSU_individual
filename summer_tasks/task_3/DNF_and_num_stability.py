@@ -16,7 +16,6 @@ def internal_stability_num(list_vertex: list, len_vertex: int) -> int:
         list_vertex.insert(index, vertex_2)   # добавляем перемноженную скобку в list_vertex
         vertex_2 = []  # очищаем список в котором перемножали скобки
     list_vertex = list_vertex[0]
-
     for elem in list_vertex:  # проходимся по ДНФ и выполняем закон поглощения
         if set(elem.split()) not in set_vertex:  # проверяем что такого элемента нет в списке
             set_vertex.append(set(elem.split()))  # добавляем в список элемент

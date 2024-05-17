@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #007bff; /* Цвет текста */
+        }
+    </style>
+</head>
+{% extends "base.html" %}
+<body>
+{% block content %}
+{% if user.is_admin %}
+<h1>Пользователь удалён</h1>
+{% else %}
+<h1>У вас недостаточно прав</h1>
+{% endif %}
+{% endblock content %}
+</body>
+</html>

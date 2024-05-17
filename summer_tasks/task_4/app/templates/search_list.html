@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .write-btn {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .search-form {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 200px;
+            margin-right: 10px;
+        }
+        .search-form button {
+            background-color: #008CBA; /* Blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+{% extends "base.html" %}
+<body>
+{% block content %}
+<div style="align-items: baseline">
+<form action="{{ url_for('search_user') }}" method="post">
+    <div class="search-form">
+        {{ form.csrf_token() }}
+            <input type="text" name="search">
+            <button type="submit" name="submit">Поиск</button>
+    </div>
+</form>
+</div>
+    <table>
+        <tr>
+            <th>Логин</th>
+            <th>ФИО</th>
+            <th>Действия</th>
+        </tr>
+        {% for user in users_list %}
+            <tr>
+                <td>{{ user.login }}</td>
+                <td>{{ user.second_name }} {{ user.first_name }} {{ user.surname }}</td>
+                <td><a href="{{ url_for('user_profile', user_id=user.id) }}""><button class="write-btn">Подробно</button></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}
+</body>
+
+</html>
