@@ -8,7 +8,7 @@
  - [Telegram бот для кодирования сообщений при помощи метода Хаффмана](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/graph%20theory/individual%202)
 
 ## Индивидуальные задания по ОВС
- - [Представления сумматора в виде Telegram бота](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/OVS/individual%201)
+ - [Представление сумматора в виде Telegram бота](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/OVS/individual%201)
 
 ## Летняя практика 1 курс
  - [Приложение для построения интерполяционного полинома Лагранжа](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/summer_tasks/task_2)
