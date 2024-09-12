@@ -73,7 +73,6 @@ class HaffmanTree:  # класс дерева Хаффмана
         # метод для сохранения фото рисованного дерева
         current_time = int(time.time())  # получаем текущее время для создания уникального пути изображения
         plt.figure(figsize=(8, 8))  # задаём размер фигуре
-        plt.figure(figsize=(10, 8))  # задаём размер фигуре
         self.view_tree(root_tree, 0, 0, 0, "")  # отрисовываем дерево
         plt.axis('off')
         plt.savefig(f'/home/danil/PycharmProjects/KUBSU_ndividual/graph theory/individual 2/tree_{arg_path}_image_{current_time}.png',

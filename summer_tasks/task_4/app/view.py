@@ -4,7 +4,7 @@ from flask_mail import Mail
 
 from config import conf
 from summer_tasks.task_4.froms.forms import RegistrationForm, SearchForm, LoginForm,  SendMessageForm, AddUserForm
-from database import session, Base, engine
+from database import session
 from summer_tasks.task_4.app.model import User
 from summer_tasks.task_4.app.control import ProfileUserOptions, IdentificationUser, AdminUserOptions
 

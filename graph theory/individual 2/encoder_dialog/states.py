@@ -9,3 +9,4 @@ class EncoderStates(StatesGroup):
     text_state = State()
     table_state = State()
     tree_state = State()
+    table_frequency = State()

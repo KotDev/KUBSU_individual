@@ -21,6 +21,7 @@ encode_dialog = Dialog(
         SwitchTo(Const("Закодированное сообщение 📪"), id="code_text", state=EncoderStates.code_state),
         SwitchTo(Const("Дерево Хаффмана 🌳"), id="media", on_click=get_tree_image, state=EncoderStates.tree_state),
         SwitchTo(Const("Таблица кодировки 📁"), id="table_encoder", state=EncoderStates.table_state),
+        SwitchTo(Const("Таблица частот 📊"), id="table_frequency", state=EncoderStates.table_frequency),
         Back(text=Const("Назад ➡️"), on_click=delete_image),
         state=EncoderStates.result_state,
     ),
@@ -47,4 +48,9 @@ encode_dialog = Dialog(
         SwitchTo(text=Const("Назад ➡️"), state=EncoderStates.result_state, id="back"),
         state=EncoderStates.table_state
     ),
+    Window(
+        Format("Таблица частот: \n {dialog_data[table_frequency_data]}"),
+        SwitchTo(text=Const("Назад ➡️"), state=EncoderStates.result_state, id="back"),
+        state=EncoderStates.table_frequency
+    )
 )

@@ -20,7 +20,10 @@ async def input_message(message: Message, message_input: MessageInput, manager: 
     encoder = Encoder(text=message.text, table=dict())
     encoder.table_haffman(root_tree, "")
     code = encoder.encoder_text()
-
+    table_frequency = ("-----------------------\n" +
+                       "".join(set([f"{i} - {message.text.count(i)}\n " for i in message.text]))
+                       + "-----------------------\n")
+    manager.dialog_data["table_frequency_data"] = table_frequency
     manager.dialog_data["encoder_table"] = encoder.view_table()
     manager.dialog_data["root"] = root_tree
     manager.dialog_data["tree"] = tree
