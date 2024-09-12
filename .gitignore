@@ -7,6 +7,10 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
+CASD/bin/
+CASD/obj/
+*.suo
+*.user
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
