@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QTableWidgetItem
 
 from window_app import Ui_MainWindow
 from PyQt5 import QtWidgets
-from slau import Slau
+from slau import SlauIteration
 
 class App(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, rows: int, cols: int):
@@ -18,13 +18,12 @@ class App(QtWidgets.QMainWindow, Ui_MainWindow):
         self.tableWidget_2.setRowCount(rows)
         self.tableWidget_2.setColumnCount(1)
         self.pushButton.clicked.connect(self.push)
-        self.radioButton.clicked.connect(self.runing_r)
-        self.radioButton_2.clicked.connect(self.gaus_r)
-        self.gaus = False
-        self.runing = False
+        self.radioButton.clicked.connect(self.relax_r)
+        self.radioButton_2.clicked.connect(self.zeidel_r)
+        self.relax = False
+        self.zeidel = False
 
     def push(self):
-        print(self.gaus, self.runing)
         for row in range(self.tableWidget.rowCount()):
             for col in range(self.tableWidget.columnCount()):
                 item = self.tableWidget.item(row, col)
@@ -32,32 +31,43 @@ class App(QtWidgets.QMainWindow, Ui_MainWindow):
                     return
         matrix: list[list[float]] = list()
         result: list[float] = [float(self.tableWidget_2.item(i, 0).text()) for i in range(self.rows)]
+        w: float = self.lineEdit_2.text()
+        epsilon: float = self.lineEdit.text()
+        try:
+            if w:
+                w = float(w)
+            epsilon = float(epsilon)
+        except ValueError():
+            self.tableWidget_2.clear()
+            self.tableWidget.clear()
+            self.textBrowser.clear()
+            self.lineEdit.clear()
+            self.lineEdit_2.clear()
+            self.textBrowser.setText("Вы не ввели epsilon")
         for i in range(self.rows):
             matrix.append([float(self.tableWidget.item(i, j).text()) for j in range(self.cols)])
         self.tableWidget_2.clear()
         self.tableWidget.clear()
-        self.textBrowser.clear()    
-        slau = Slau(matrix, result)
-        if self.gaus:
-            slau.method_gaus()
-            self.textBrowser.setText(", ".join(map(str, slau.result)))
-            for i in range(len(slau.matrix)):
-                for j in range(len(slau.matrix[i])):
-                    item = QtWidgets.QTableWidgetItem(str(matrix[i][j]))
-                    self.tableWidget.setItem(i, j, item)
-        elif self.runing:
-            slau.method_gaus()
-            self.textBrowser.setText(", ".join(map(str, slau.result)))
+        self.textBrowser.clear()
+        self.lineEdit.clear()
+        self.lineEdit_2.clear()
+        slau = SlauIteration(matrix, result, x_pr=[0]*len(matrix), epsilon=epsilon, w=w)
+        if self.zeidel:
+            slau.zeidel()
+            self.textBrowser.setText(", ".join(map(str, slau.x_pr)))
+        elif self.relax:
+            slau.relax_method()
+            self.textBrowser.setText(", ".join(map(str, slau.x_pr)))
         else:
             self.textBrowser.setText("Метод не выбран")
 
-    def gaus_r(self):
-        self.runing = False
-        self.gaus = True
+    def zeidel_r(self):
+        self.relax = False
+        self.zeidel = True
 
-    def runing_r(self):
-        self.runing = True
-        self.gaus = False
+    def relax_r(self):
+        self.relax = True
+        self.zeidel = False
 
 
 def main():

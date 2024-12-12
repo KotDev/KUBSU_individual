@@ -96,7 +96,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_4.setText(_translate("MainWindow", "b = "))
         self.pushButton_3.setText(_translate("MainWindow", "Левый"))
-        self.pushButton_2.setText(_translate("MainWindow", "Средний"))
         self.pushButton.setText(_translate("MainWindow", "Правый"))
         self.label.setText(_translate("MainWindow", "Точность"))
         self.label_3.setText(_translate("MainWindow", "Функция"))

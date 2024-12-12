@@ -37,7 +37,7 @@ if x1 == 1:
     y_values2 = [Lagrange(example_function2, n, x) for x in x_values]
 else:
     y_values1 = [example_function1(x) for x in x_values]
-    y_values2 = [Lagrange(example_function2, n, x) for x in x_values]
+    y_values2 = [Lagrange(example_function1, n, x) for x in x_values]
 fig, ax = plt.subplots()
 ax.plot(x_values, y_values1, label='f(x) = 1/(1 + 25*x^2)', color='blue')
 ax.plot(x_values, y_values2, label='Интерполяция Лагранжа', color='red')
