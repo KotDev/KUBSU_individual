@@ -19,4 +19,7 @@
 
  - [Приложение для работы с пользователями и email рассылки на Flask](https://github.com/OreoLand123/KUBSU_ndividual/tree/master/summer_tasks/task_4)
    
-
+## Лабораторные работы по АВМ
+- [Приложение для вычисления кубического сплайна](https://github.com/KotDev/KUBSU_individual/tree/master/numerical_methods/lab_1)
+- [Приложение для вычисления интегралла при помощи левых, правых, средних прямоугольников](https://github.com/KotDev/KUBSU_individual/tree/master/numerical_methods/lab_2)
+- [Приложение для решения СЛАУ при помощи метода Гауса и метода прогонки](https://github.com/KotDev/KUBSU_individual/tree/master/numerical_methods/lab_3)
